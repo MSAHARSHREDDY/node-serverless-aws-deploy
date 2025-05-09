@@ -5,18 +5,11 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build-and-deploy:
+  user-service:
     runs-on: self-hosted
-    strategy:
-      matrix:
-        service:
-          - user-service
-          - product-service
-          - transaction-service
     defaults:
       run:
-        working-directory: root-folder/${{ matrix.service }}
-
+        working-directory: root-folder/user-service
     steps:
       - uses: actions/checkout@v4
 
@@ -24,17 +17,55 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache-dependency-path: root-folder/${{ matrix.service }}/package-lock.json
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build and Deploy
+      - name: Deploy user-service
         run: |
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
-          if [ "${{ matrix.service }}" = "user-service" ]; then
-            npx serverless deploy --verbose
-          else
-            npx cdk deploy --require-approval never --verbose
-          fi
+          npx serverless deploy --verbose
+
+  product-service:
+    runs-on: self-hosted
+    needs: user-service
+    defaults:
+      run:
+        working-directory: root-folder/product-service
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy product-service
+        run: npx cdk deploy --require-approval never --verbose
+
+  transaction-service:
+    runs-on: self-hosted
+    needs: product-service
+    defaults:
+      run:
+        working-directory: root-folder/transaction-service
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy transaction-service
+        run: npx cdk deploy --require-approval never --verbose
