@@ -104,7 +104,7 @@ export class UserService {
         code,
         expiry
       );
-      //const response = await SendVerificationCode(code, payload.phone);
+      const response = await SendVerificationCode(code, payload.phone);
       return SuccessResponse({
         message: "verification code is sent to your registered mobile number!",
       });
