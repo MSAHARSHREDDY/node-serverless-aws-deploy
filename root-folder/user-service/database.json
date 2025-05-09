@@ -1,0 +1,15 @@
+{
+    "_comment": "It reads from the 'dev' config in database.json to connect to that DB.->**when you are using local db i.e postgres change user,password to 'root' and host to 'localhost' and ->*********when  host i.e postgres db  is managed automatically so change user,password to 'user_service' and host to 'user-service.c47awawo6dzh.us-east-1.rds.amazonaws.com', ->**********when  host i.e postgres db  is managed manually so change user,password to 'user_service' and host to 'ec2-52-91-81-127.compute-1.amazonaws.com'  " ,
+    "dev": {
+      "driver": "pg",
+      "user": "user_service",
+      "password": "user_service",
+      "host": "ec2-52-91-81-127.compute-1.amazonaws.com",
+      "database": "user_service",
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
+    
+  }
+  

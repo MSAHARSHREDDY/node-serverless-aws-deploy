@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "driver": "pg",
+      "user": "transaction_service",
+      "password": "transaction_service",
+      "host": "ec2-52-91-81-127.compute-1.amazonaws.com",
+      "database": "transaction_service"
+    }
+  }
+  

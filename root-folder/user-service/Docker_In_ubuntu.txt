@@ -1,0 +1,7 @@
+step1->
+    Install wsl --install it powershell as adminstrator it is going to install ubuntu
+
+step2->
+     	sudo apt update
+	sudo apt install docker.io
+	sudo dockerd
