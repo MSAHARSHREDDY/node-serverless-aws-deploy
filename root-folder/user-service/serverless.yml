@@ -127,7 +127,7 @@ functions:
   collect-payment:
     handler: app/handlers/orderHandler.CollectPayment
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /collect-payment
