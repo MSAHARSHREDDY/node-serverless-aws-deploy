@@ -193,7 +193,7 @@ functions:
 
 plugins:
     - serverless-offline
-    - serverless-esbuild
+   
 
 
 package:
