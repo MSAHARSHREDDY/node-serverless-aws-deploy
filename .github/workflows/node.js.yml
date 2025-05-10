@@ -10,6 +10,10 @@ jobs:
     defaults:
       run:
         working-directory: root-folder/user-service
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,11 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy user-service
+      - name: Inject .env file
         run: |
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
-          npx serverless deploy --verbose
+
+      - name: Deploy user-service
+        run: npx serverless deploy --verbose
 
   product-service:
     runs-on: self-hosted
@@ -35,6 +41,10 @@ jobs:
     defaults:
       run:
         working-directory: root-folder/product-service
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -57,6 +67,10 @@ jobs:
     defaults:
       run:
         working-directory: root-folder/transaction-service
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
       - uses: actions/checkout@v4
 
