@@ -40,7 +40,6 @@
     "@types/pg": "^8.11.11",
     "cross-env": "^7.0.3",
     "mock-aws-s3": "^4.0.2",
-    "serverless-esbuild": "^1.55.0",
     "serverless-offline": "^14.4.0",
     "serverless-plugin-optimize": "^4.2.1-rc.1"
   }
