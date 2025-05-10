@@ -1,40 +1,71 @@
-name: Deploy Monorepo Services
+name: Node.js Monorepo CI/CD
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  deploy-user-service:
+  user-service:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set working directory
+        run: cd root-folder/user-service
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: root-folder/user-service
+        run: npm ci
+
       - name: Deploy user-service
         working-directory: root-folder/user-service
         run: |
-          npm ci
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
           serverless deploy --verbose
 
-  deploy-product-service:
+  product-service:
     runs-on: self-hosted
-    needs: deploy-user-service
+    needs: user-service
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: root-folder/product-service
+        run: npm ci
+
       - name: Deploy product-service
         working-directory: root-folder/product-service
-        run: |
-          npm ci
-          cdk deploy --require-approval never --verbose
+        run: cdk deploy --require-approval never --verbose
 
-  deploy-transaction-service:
+  transaction-service:
     runs-on: self-hosted
-    needs: deploy-product-service
+    needs: product-service
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: root-folder/transaction-service
+        run: npm ci
+
       - name: Deploy transaction-service
         working-directory: root-folder/transaction-service
-        run: |
-          npm ci
-          cdk deploy --require-approval never --verbose
+        run: cdk deploy --require-approval never --verbose
