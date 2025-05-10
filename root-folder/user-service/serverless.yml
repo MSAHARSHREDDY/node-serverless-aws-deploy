@@ -1,230 +1,5 @@
-# # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-# # org: malladisaharshreddy
-# # # "service" is the name of this project. This will also be added to your AWS resource names.
-# # service: user-service
-
-# #useDotenv: true
-# # org: null
-# # app: null
-# # dashboard: false
-# service: user-service
-# useDotenv: true
-
-# provider:
-#   name: aws
-#   runtime: nodejs20.x
-#   versionFunctions: false
-#   stage: dev
-#   region: us-east-1
-#   httpApi:
-#     cors: true
-#   environment:
-#     SNS_TOPIC: { Ref: CustomerTopic }
-#     STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
-#     STRIPE_PUBLISHABLE_KEY: ${env:STRIPE_PUBLISHABLE_KEY}
-#   iamRoleStatements:
-#     - Effect: "Allow"
-#       Action:
-#         - "sns:Publish"
-#       Resource:
-#         - !Ref CustomerTopic
-
-# custom:
-#   stage: "dev"
-#   serverless-offline:
-#     useChildProcesses: true #It is very important to add
-#     httpPort: 4000
-#     lambdaPort: 4002
-#   esbuild:
-#     bundle: true
-#     minify: false
-#     sourcemap: true
-#     target: node20
-#     platform: node
-#     concurrency: 10
-#     external: []          # <-- you can add 'aws-sdk' here if needed, usually it's not bundled
-#     installExtraArgs: ["aws-sdk"]  # <-- Tell esbuild to install aws-sdk into your bundle
-
-     
-  
-
-
-# functions:
-#   signup:
-#     handler: app/handlers/userHandler.Signup #Here Singup is a function which calling from "app/handlers/userHandler"
-#     timeout: 30
-#     events:
-#       - httpApi:
-#           path: /signup
-#           method: post
-  
-#   login:
-#     handler: app/handlers/userHandler.Login
-#     timeout: 30 # Increase the timeout
-#     events:
-#       - httpApi:
-#           path: /login
-#           method: post
-  
-#   verify:
-#     handler: app/handlers/userHandler.Verify
-#     timeout: 120
-#     events:
-#       - httpApi:
-#           path: /verify
-#           method: post
-#   get-verification-code:
-#     handler: app/handlers/userHandler.GetVerificationCode
-#     events:
-#       - httpApi:
-#           path: /verify
-#           method: get
-#   create-profile:
-#     handler: app/handlers/userHandler.CreateProfile
-#     events:
-#       - httpApi:
-#           path: /user
-#           method: post
-#   edit-profile:
-#     handler: app/handlers/userHandler.EditProfile
-#     events:
-#       - httpApi:
-#           path: /user
-#           method: put
-#   get-profile:
-#     handler: app/handlers/userHandler.GetProfile
-#     timeout: 30
-#     events:
-#       - httpApi:
-#           path: /user
-#           method: get
-  
-
-#   #cart-section
-#   create-cart:
-#     handler: app/handlers/cartHandler.CreateCart
-#     timeout: 100 # Increase the timeout
-#     events:
-#       - httpApi:
-#           path: /cart
-#           method: post
-  
-#   edit-cart:
-#     handler: app/handlers/cartHandler.EditCart
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /cart/{id}
-#           method: put
-#   get-cart:
-#     handler: app/handlers/cartHandler.GetCart
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /cart
-#           method: get
-#   delete-cart:
-#     handler: app/handlers/cartHandler.DeleteCart
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /cart/{id}
-#           method: delete
-      
-
-  
-#   # payment:
-#   #   handler: app/handler.Payment
-#   #   #timeout: 30 # Increase the timeout
-#   #   events:
-#   #     - httpApi:
-#   #         path: /payment
-#   #         method: post
-#   #     - httpApi:
-#   #         path: /payment
-#   #         method: put
-#   #     - httpApi:
-#   #         path: /payment
-#   #         method: get
-  
-
-#   collect-payment:
-#     handler: app/handlers/orderHandler.CollectPayment
-#     timeout: 100 # Increase the timeout
-#     esbuild: true
-#     events:
-#       - httpApi:
-#           path: /collect-payment
-#           method: post
-  
-#   place-order:
-#     handler: app/handlers/orderHandler.PlaceOrder
-#     timeout: 30
-#     esbuild: true
-#     events:
-#       - httpApi:
-#           path: /order
-#           method: post
-  
-#   joinSellerProgram:
-#     handler: app/handlers/sellerHandler.JoinSellerProgram
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /join
-#           method: post
-
-#   getPaymentMethod:
-#     handler: app/handlers/sellerHandler.GetPaymentMethods
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /payment-methods
-#           method: get
-
-#   editPaymentMethod:
-#     handler: app/handlers/sellerHandler.EditPaymentMethods
-#     timeout: 100
-#     events:
-#       - httpApi:
-#           path: /payment-methods/{id}
-#           method: put
-     
-
-# plugins:
-#     - serverless-offline
-   
-
-
-# package:
-#   individually: false
-
-# resources:
-#   Resources:
-#     CustomerTopic:
-#       Type: AWS::SNS::Topic
-#       Properties:
-#         DisplayName: "customer sns topic description"
-#         TopicName: CustomerTopic
-
-#   # output for later usages
-#   Outputs:
-#     CustomerTopicInfo:
-#       Description: customer-topic
-#       Value: !Ref CustomerTopic
-#       Export:
-#         Name: customer-topic
-
-
-
-# # package:
-# #   exclude:
-# #     - node_modules/pg-native/**
-# #     - node_modules/@mapbox/**   # Exclude @mapbox module
-   
-
-
 service: user-service
+
 useDotenv: true
 
 provider:
@@ -249,7 +24,7 @@ provider:
 custom:
   stage: "dev"
   serverless-offline:
-    useChildProcesses: true # Important for running offline
+    useChildProcesses: true # Very important for serverless-offline to work properly
     httpPort: 4000
     lambdaPort: 4002
   esbuild:
@@ -259,8 +34,8 @@ custom:
     target: node20
     platform: node
     concurrency: 10
-    external: []          # Add 'aws-sdk' here if you want to exclude it from bundling
-    installExtraArgs: ["aws-sdk"]  # Ensures aws-sdk is available in your Lambda
+    external: []  # If you need to exclude external libraries like aws-sdk, add it here.
+    installExtraArgs: ["aws-sdk"]  # Install aws-sdk if needed.
 
 functions:
   signup:
@@ -286,14 +61,14 @@ functions:
       - httpApi:
           path: /verify
           method: post
-
+  
   get-verification-code:
     handler: app/handlers/userHandler.GetVerificationCode
     events:
       - httpApi:
           path: /verify
           method: get
-  
+
   create-profile:
     handler: app/handlers/userHandler.CreateProfile
     events:
@@ -315,7 +90,8 @@ functions:
       - httpApi:
           path: /user
           method: get
-
+  
+  # Cart section
   create-cart:
     handler: app/handlers/cartHandler.CreateCart
     timeout: 100
@@ -331,7 +107,7 @@ functions:
       - httpApi:
           path: /cart/{id}
           method: put
-  
+
   get-cart:
     handler: app/handlers/cartHandler.GetCart
     timeout: 100
@@ -347,10 +123,11 @@ functions:
       - httpApi:
           path: /cart/{id}
           method: delete
-
+  
   collect-payment:
     handler: app/handlers/orderHandler.CollectPayment
     timeout: 100
+    esbuild: true
     events:
       - httpApi:
           path: /collect-payment
@@ -359,11 +136,12 @@ functions:
   place-order:
     handler: app/handlers/orderHandler.PlaceOrder
     timeout: 30
+    esbuild: true
     events:
       - httpApi:
           path: /order
           method: post
-  
+
   joinSellerProgram:
     handler: app/handlers/sellerHandler.JoinSellerProgram
     timeout: 100
@@ -371,7 +149,7 @@ functions:
       - httpApi:
           path: /join
           method: post
-
+  
   getPaymentMethod:
     handler: app/handlers/sellerHandler.GetPaymentMethods
     timeout: 100
@@ -391,6 +169,9 @@ functions:
 plugins:
   - serverless-offline
 
+package:
+  individually: false
+
 resources:
   Resources:
     CustomerTopic:
@@ -399,10 +180,10 @@ resources:
         DisplayName: "customer sns topic description"
         TopicName: CustomerTopic
 
+  # Output for later usage
   Outputs:
     CustomerTopicInfo:
       Description: customer-topic
       Value: !Ref CustomerTopic
       Export:
         Name: customer-topic
-
