@@ -285,15 +285,15 @@ custom:
     useChildProcesses: true #It is very important to add
     httpPort: 4000
     lambdaPort: 4002
-  esbuild:
-    bundle: true
-    minify: false
-    sourcemap: true
-    target: node20
-    platform: node
-    concurrency: 10
-    external: []          # <-- you can add 'aws-sdk' here if needed, usually it's not bundled
-    installExtraArgs: ["aws-sdk"]  # <-- Tell esbuild to install aws-sdk into your bundle
+  # esbuild:
+  #   bundle: true
+  #   minify: false
+  #   sourcemap: true
+  #   target: node20
+  #   platform: node
+  #   concurrency: 10
+  #   external: []          # <-- you can add 'aws-sdk' here if needed, usually it's not bundled
+  #   installExtraArgs: ["aws-sdk"]  # <-- Tell esbuild to install aws-sdk into your bundle
 
      
   
