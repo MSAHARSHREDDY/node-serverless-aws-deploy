@@ -1,12 +1,14 @@
+import dotenv from "dotenv"
+dotenv.config()
 import mongoose from "mongoose";
 mongoose.set("strictQuery", false);
 
+
 const ConnectDB = async () => {
-  const DB_URL =
-    "mongodb+srv://saharshreddym59:z5AIsXaYvTum2zo6@cluster0.yco7z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  const DB_URL =process.env.DB_URL;
 
   try {
-    await mongoose.connect(DB_URL);
+    await mongoose.connect(DB_URL!);//Adding ! tells TypeScript: “Trust me, this is not undefined.”
   } catch (err) {
     console.log("failed to connect db")
     console.log(err);

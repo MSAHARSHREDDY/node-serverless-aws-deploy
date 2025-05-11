@@ -20,7 +20,7 @@
 import { Client } from "pg";
 export const DBClient = () => {
   return new Client({
-    host: "ec2-52-91-81-127.compute-1.amazonaws.com", //It is taken from EC2 Instance from aws when you select that instance at below you find public IPV4 DNS ,copy that and paste in host
+    host: "ec2-34-226-119-167.compute-1.amazonaws.com", //It is taken from EC2 Instance from aws when you select that instance at below you find public IPV4 DNS ,copy that and paste in host
     user: "user_service",
     database: "user_service",
     password: "user_service",
