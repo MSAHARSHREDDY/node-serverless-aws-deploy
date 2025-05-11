@@ -53,7 +53,7 @@
 #     timeout: 100
 #     #Error: Cannot find module '/mnt/f/NODEJS_SERVERLESS_PRACTICE_BY_CODE_WITH_JAY/user-service/user-service/.esbuild/.build/app/handlers/userHandler.ts'
 #     #If the same issue perform you need to remove esbuild and run "SERVERLESS_DASHBOARD=0 serverless offline"
-#     esbuild: true #some u get the error like app/handlers/userHandler doesnot exist so keep this commnd to avoid that error
+#      #some u get the error like app/handlers/userHandler doesnot exist so keep this commnd to avoid that error
 #     events:
 #       - httpApi:
 #           path: /signup
@@ -62,7 +62,7 @@
 #   login:
 #     handler: app/handlers/userHandler.Login
 #     timeout: 100 # Increase the timeout
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /login
@@ -71,7 +71,7 @@
 #   verify:
 #     handler: app/handlers/userHandler.Verify
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /verify
@@ -79,7 +79,7 @@
 #   get-verification-code:
 #     handler: app/handlers/userHandler.GetVerificationCode
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /verify
@@ -87,7 +87,7 @@
 #   create-profile:
 #     handler: app/handlers/userHandler.CreateProfile
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /user
@@ -95,7 +95,7 @@
 #   edit-profile:
 #     handler: app/handlers/userHandler.EditProfile
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /user
@@ -103,7 +103,7 @@
 #   get-profile:
 #     handler: app/handlers/userHandler.GetProfile
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /user
@@ -114,7 +114,7 @@
 #   create-cart:
 #     handler: app/handlers/cartHandler.CreateCart
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /cart
@@ -123,7 +123,7 @@
 #   edit-cart:
 #     handler: app/handlers/cartHandler.EditCart
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /cart/{id}
@@ -131,7 +131,7 @@
 #   get-cart:
 #     handler: app/handlers/cartHandler.GetCart
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /cart
@@ -139,7 +139,7 @@
 #   delete-cart:
 #     handler: app/handlers/cartHandler.DeleteCart
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /cart/{id}
@@ -165,7 +165,7 @@
 #   collect-payment:
 #     handler: app/handlers/orderHandler.CollectPayment
 #     timeout: 100 # Increase the timeout
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /collect-payment
@@ -182,7 +182,7 @@
 #   place-order:
 #     handler: app/handlers/orderHandler.PlaceOrder
 #     timeout: 30
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /order
@@ -191,7 +191,7 @@
 #   joinSellerProgram:
 #     handler: app/handlers/sellerHandler.JoinSellerProgram
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /join
@@ -200,7 +200,7 @@
 #   getPaymentMethod:
 #     handler: app/handlers/sellerHandler.GetPaymentMethods
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /payment-methods
@@ -209,7 +209,7 @@
 #   editPaymentMethod:
 #     handler: app/handlers/sellerHandler.EditPaymentMethods
 #     timeout: 100
-#     esbuild: true
+#     
 #     events:
 #       - httpApi:
 #           path: /payment-methods/{id}
@@ -305,7 +305,7 @@ functions:
     timeout: 100
     #Error: Cannot find module '/mnt/f/NODEJS_SERVERLESS_PRACTICE_BY_CODE_WITH_JAY/user-service/user-service/.esbuild/.build/app/handlers/userHandler.ts'
     #If the same issue perform you need to remove esbuild and run "SERVERLESS_DASHBOARD=0 serverless offline"
-    esbuild: true #some u get the error like app/handlers/userHandler doesnot exist so keep this commnd to avoid that error
+     #some u get the error like app/handlers/userHandler doesnot exist so keep this commnd to avoid that error
     events:
       - httpApi:
           path: /signup
@@ -314,7 +314,7 @@ functions:
   login:
     handler: app/handlers/userHandler.Login
     timeout: 100 # Increase the timeout
-    esbuild: true
+   
     events:
       - httpApi:
           path: /login
@@ -323,7 +323,7 @@ functions:
   verify:
     handler: app/handlers/userHandler.Verify
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /verify
@@ -331,7 +331,7 @@ functions:
   get-verification-code:
     handler: app/handlers/userHandler.GetVerificationCode
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /verify
@@ -339,7 +339,7 @@ functions:
   create-profile:
     handler: app/handlers/userHandler.CreateProfile
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /user
@@ -347,7 +347,7 @@ functions:
   edit-profile:
     handler: app/handlers/userHandler.EditProfile
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /user
@@ -355,7 +355,7 @@ functions:
   get-profile:
     handler: app/handlers/userHandler.GetProfile
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /user
@@ -366,7 +366,7 @@ functions:
   create-cart:
     handler: app/handlers/cartHandler.CreateCart
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /cart
@@ -375,7 +375,7 @@ functions:
   edit-cart:
     handler: app/handlers/cartHandler.EditCart
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /cart/{id}
@@ -383,7 +383,7 @@ functions:
   get-cart:
     handler: app/handlers/cartHandler.GetCart
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /cart
@@ -391,7 +391,7 @@ functions:
   delete-cart:
     handler: app/handlers/cartHandler.DeleteCart
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /cart/{id}
@@ -417,7 +417,7 @@ functions:
   collect-payment:
     handler: app/handlers/orderHandler.CollectPayment
     timeout: 100 # Increase the timeout
-    esbuild: true
+    
     events:
       - httpApi:
           path: /collect-payment
@@ -434,7 +434,7 @@ functions:
   place-order:
     handler: app/handlers/orderHandler.PlaceOrder
     timeout: 30
-    esbuild: true
+    
     events:
       - httpApi:
           path: /order
@@ -443,7 +443,7 @@ functions:
   joinSellerProgram:
     handler: app/handlers/sellerHandler.JoinSellerProgram
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /join
@@ -452,7 +452,7 @@ functions:
   getPaymentMethod:
     handler: app/handlers/sellerHandler.GetPaymentMethods
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /payment-methods
@@ -461,7 +461,7 @@ functions:
   editPaymentMethod:
     handler: app/handlers/sellerHandler.EditPaymentMethods
     timeout: 100
-    esbuild: true
+    
     events:
       - httpApi:
           path: /payment-methods/{id}
