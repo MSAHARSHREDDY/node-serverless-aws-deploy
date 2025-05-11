@@ -1,4 +1,256 @@
 
+# service: user-service
+# useDotenv: true
+
+# provider:
+#   name: aws
+#   runtime: nodejs20.x
+#   versionFunctions: false
+#   stage: dev
+#   region: us-east-1
+#   httpApi:
+#     cors: true
+#   environment:
+#     SNS_TOPIC: { Ref: CustomerTopic }
+#     STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+#     STRIPE_PUBLISHABLE_KEY: ${env:STRIPE_PUBLISHABLE_KEY}
+#     accountSid: ${env:accountSid}
+#     authToken: ${env:authToken}
+#   iamRoleStatements:
+#     - Effect: "Allow"
+#       Action:
+#         - "sns:Publish"
+#       Resource:
+#         - !Ref CustomerTopic
+
+# # ✅ Disable built-in Serverless esbuild (important)
+# build:
+#   esbuild: false
+
+# custom:
+#   stage: "dev"
+#   serverless-offline:
+#     useChildProcesses: true #It is very important to add
+#     httpPort: 4000
+#     lambdaPort: 4002
+#   esbuild:
+#     bundle: true
+#     minify: false
+#     sourcemap: true
+#     target: node20
+#     platform: node
+#     concurrency: 10
+#     external: []          # <-- you can add 'aws-sdk' here if needed, usually it's not bundled
+#     installExtraArgs: ["aws-sdk"]  # <-- Tell esbuild to install aws-sdk into your bundle
+
+     
+  
+
+
+# functions:
+#   signup:
+#     handler: app/handlers/userHandler.Signup #Here Singup is a function which calling from "app/handlers/userHandler"
+#     timeout: 100
+#     #Error: Cannot find module '/mnt/f/NODEJS_SERVERLESS_PRACTICE_BY_CODE_WITH_JAY/user-service/user-service/.esbuild/.build/app/handlers/userHandler.ts'
+#     #If the same issue perform you need to remove esbuild and run "SERVERLESS_DASHBOARD=0 serverless offline"
+#     esbuild: true #some u get the error like app/handlers/userHandler doesnot exist so keep this commnd to avoid that error
+#     events:
+#       - httpApi:
+#           path: /signup
+#           method: post
+  
+#   login:
+#     handler: app/handlers/userHandler.Login
+#     timeout: 100 # Increase the timeout
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /login
+#           method: post
+  
+#   verify:
+#     handler: app/handlers/userHandler.Verify
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /verify
+#           method: post
+#   get-verification-code:
+#     handler: app/handlers/userHandler.GetVerificationCode
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /verify
+#           method: get
+#   create-profile:
+#     handler: app/handlers/userHandler.CreateProfile
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /user
+#           method: post
+#   edit-profile:
+#     handler: app/handlers/userHandler.EditProfile
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /user
+#           method: put
+#   get-profile:
+#     handler: app/handlers/userHandler.GetProfile
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /user
+#           method: get
+  
+
+#   #cart-section
+#   create-cart:
+#     handler: app/handlers/cartHandler.CreateCart
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /cart
+#           method: post
+  
+#   edit-cart:
+#     handler: app/handlers/cartHandler.EditCart
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /cart/{id}
+#           method: put
+#   get-cart:
+#     handler: app/handlers/cartHandler.GetCart
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /cart
+#           method: get
+#   delete-cart:
+#     handler: app/handlers/cartHandler.DeleteCart
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /cart/{id}
+#           method: delete
+      
+
+  
+#   # payment:
+#   #   handler: app/handler.Payment
+#   #   #timeout: 30 # Increase the timeout
+#   #   events:
+#   #     - httpApi:
+#   #         path: /payment
+#   #         method: post
+#   #     - httpApi:
+#   #         path: /payment
+#   #         method: put
+#   #     - httpApi:
+#   #         path: /payment
+#   #         method: get
+  
+
+#   collect-payment:
+#     handler: app/handlers/orderHandler.CollectPayment
+#     timeout: 100 # Increase the timeout
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /collect-payment
+#           method: post
+  
+#   addPaymentMethod:
+#     handler: app/handlers/orderHandler.AddPaymentMethodHandler
+#     timeout: 100
+#     events:
+#     - httpApi:
+#         path: /add-payment-method
+#         method: post
+  
+#   place-order:
+#     handler: app/handlers/orderHandler.PlaceOrder
+#     timeout: 30
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /order
+#           method: post
+  
+#   joinSellerProgram:
+#     handler: app/handlers/sellerHandler.JoinSellerProgram
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /join
+#           method: post
+
+#   getPaymentMethod:
+#     handler: app/handlers/sellerHandler.GetPaymentMethods
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /payment-methods
+#           method: get
+
+#   editPaymentMethod:
+#     handler: app/handlers/sellerHandler.EditPaymentMethods
+#     timeout: 100
+#     esbuild: true
+#     events:
+#       - httpApi:
+#           path: /payment-methods/{id}
+#           method: put
+     
+
+# plugins:
+#     - serverless-esbuild
+#     - serverless-offline
+    
+
+
+# package:
+#   individually: false
+
+# resources:
+#   Resources:
+#     CustomerTopic:
+#       Type: AWS::SNS::Topic
+#       Properties:
+#         DisplayName: "customer sns topic description"
+#         TopicName: CustomerTopic
+
+#   # output for later usages
+#   Outputs:
+#     CustomerTopicInfo:
+#       Description: customer-topic
+#       Value: !Ref CustomerTopic
+#       Export:
+#         Name: customer-topic
+
+
+
+# # package:
+# #   exclude:
+# #     - node_modules/pg-native/**
+# #     - node_modules/@mapbox/**   # Exclude @mapbox module
+   
+
+###############################Uninstalling esbuild##############################
+
 service: user-service
 useDotenv: true
 
@@ -217,7 +469,6 @@ functions:
      
 
 plugins:
-    - serverless-esbuild
     - serverless-offline
     
 
@@ -248,6 +499,7 @@ resources:
 #     - node_modules/pg-native/**
 #     - node_modules/@mapbox/**   # Exclude @mapbox module
    
+
 
 
 
