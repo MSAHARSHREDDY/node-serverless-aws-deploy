@@ -25,9 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Inject .env file (base64 decoded)
+      - name: Inject .env file
         run: |
-          echo "${{ secrets.PROD_ENV_FILE }}" | base64 --decode > .env
+          echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > .env
+
 
       - name: Deploy user-service
         run: SERVERLESS_DASHBOARD=0 npx serverless deploy --verbose
