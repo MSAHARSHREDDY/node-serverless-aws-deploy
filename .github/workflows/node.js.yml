@@ -25,9 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Inject .env file
-        run: |
-          echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > .env
+      # - name: Inject .env file
+      #   run: |
+      #     echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > .env
 
 
       - name: Deploy user-service
