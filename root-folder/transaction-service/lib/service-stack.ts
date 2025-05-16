@@ -22,7 +22,6 @@ export class ServiceStack extends Construct {
     const functionProps: NodejsFunctionProps = {
       bundling: {
         externalModules: [],/*Here we are including "aws-sdk" as we are running on nodejs20*/
-        forceDockerBundling: false,
       },
       runtime: Runtime.NODEJS_20_X,
       timeout: Duration.seconds(180),
