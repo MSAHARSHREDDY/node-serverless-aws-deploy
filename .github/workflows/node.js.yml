@@ -3,7 +3,6 @@ name: Node.js Monorepo CI/CD
 on:
   push:
     branches: [ "master" ]
-    # Run the workflow only when *any* of the three folders changes
     paths:
       - 'root-folder/user-service/**'
       - 'root-folder/product-service/**'
@@ -11,7 +10,7 @@ on:
 
 jobs:
   # ──────────────────────────────────────────────────────────────
-  detect-changes:                    # quick, runs first
+  detect-changes:
     runs-on: ubuntu-latest
     outputs:
       user:  ${{ steps.filter.outputs.user }}
