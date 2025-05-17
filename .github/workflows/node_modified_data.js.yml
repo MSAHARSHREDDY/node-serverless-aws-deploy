@@ -46,7 +46,8 @@ jobs:
         with:
           node-version: 20.x
           cache: npm
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: root-folder/user-service/package-lock.json
+
       - run: npm ci
       - name: Deploy user-service
         run: SERVERLESS_DASHBOARD=0 npx serverless deploy --verbose
