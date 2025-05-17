@@ -25,7 +25,7 @@ provider:
 
 # ✅ Disable built-in Serverless esbuild (important)
 build:
-  esbuild: true
+  esbuild: false
 
 custom:
   stage: "dev"
