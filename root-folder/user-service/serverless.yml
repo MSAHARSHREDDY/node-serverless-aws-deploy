@@ -12,10 +12,10 @@ provider:
     cors: true
   environment:
     SNS_TOPIC: { Ref: CustomerTopic }
-    STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
-    STRIPE_PUBLISHABLE_KEY: ${env:STRIPE_PUBLISHABLE_KEY}
-    accountSid: ${env:accountSid}
-    authToken: ${env:authToken}
+    # STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+    # STRIPE_PUBLISHABLE_KEY: ${env:STRIPE_PUBLISHABLE_KEY}
+    # accountSid: ${env:accountSid}
+    # authToken: ${env:authToken}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
