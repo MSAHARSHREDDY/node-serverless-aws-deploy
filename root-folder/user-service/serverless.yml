@@ -25,7 +25,7 @@ provider:
 
 # ✅ Disable built-in Serverless esbuild (important)
 build:
-  esbuild: false
+  esbuild: true
 
 custom:
   stage: "dev"
@@ -62,6 +62,7 @@ functions:
   login:
     handler: app/handlers/userHandler.Login
     timeout: 100 # Increase the timeout
+    esbuild: true
     
     events:
       - httpApi:
