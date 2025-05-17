@@ -241,6 +241,8 @@ resources:
       Value: !Ref CustomerTopic
       Export:
         Name: customer-topic
+  
+  #Modified the change in file of serverless.yaml
 
 
 
