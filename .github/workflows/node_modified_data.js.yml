@@ -27,8 +27,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Serverless CLI (v3 to avoid login)
+        run: npm install -g serverless@3
+
       - name: Deploy with Serverless
-        run: npx serverless deploy --stage dev
+        run: serverless deploy --stage dev
 
   deploy-product-service:
     name: Deploy Product Service (CDK)
