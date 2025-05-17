@@ -1,4 +1,3 @@
-
 name: Node.js Monorepo CI/CD
 
 on:
@@ -8,6 +7,9 @@ on:
 jobs:
   user-service:
     runs-on: self-hosted
+    if: github.event_name == 'push'
+    paths:
+      - 'root-folder/user-service/**'
     defaults:
       run:
         working-directory: root-folder/user-service
@@ -35,7 +37,10 @@ jobs:
 
   product-service:
     runs-on: self-hosted
-    needs: user-service
+    if: github.event_name == 'push'
+    paths:
+      - 'root-folder/product-service/**'
+    needs: user-service  # Optional: remove if independent
     defaults:
       run:
         working-directory: root-folder/product-service
@@ -63,7 +68,10 @@ jobs:
 
   transaction-service:
     runs-on: self-hosted
-    needs: product-service
+    if: github.event_name == 'push'
+    paths:
+      - 'root-folder/transaction-service/**'
+    needs: product-service  # Optional: remove if independent
     defaults:
       run:
         working-directory: root-folder/transaction-service
@@ -88,5 +96,3 @@ jobs:
 
       - name: Deploy transaction-service
         run: npx cdk deploy --require-approval never --verbose
-
-
