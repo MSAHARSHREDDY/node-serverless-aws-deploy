@@ -1,92 +1,190 @@
+# name: Node.js Monorepo CI/CD
+
+# on:
+#   push:
+#     branches: [ "master" ]
+
+# jobs:
+#   user-service:
+#     runs-on: self-hosted
+#     if: github.event_name == 'push'
+#     paths:
+#       - 'root-folder/user-service/**'
+#     defaults:
+#       run:
+#         working-directory: root-folder/user-service
+
+#     env:
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       AWS_REGION: us-east-1
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20.x
+#           cache: 'npm'
+#           cache-dependency-path: root-folder/user-service/package-lock.json
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Deploy user-service
+#         run: SERVERLESS_DASHBOARD=0 npx serverless deploy --verbose
+
+#   product-service:
+#     runs-on: self-hosted
+#     if: github.event_name == 'push'
+#     paths:
+#       - 'root-folder/product-service/**'
+#     needs: user-service  # Optional: remove if independent
+#     defaults:
+#       run:
+#         working-directory: root-folder/product-service
+
+#     env:
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       AWS_REGION: us-east-1
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20.x
+#           cache: 'npm'
+#           cache-dependency-path: root-folder/product-service/package-lock.json
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Deploy product-service
+#         run: npx cdk deploy --require-approval never --verbose
+
+#   transaction-service:
+#     runs-on: self-hosted
+#     if: github.event_name == 'push'
+#     paths:
+#       - 'root-folder/transaction-service/**'
+#     needs: product-service  # Optional: remove if independent
+#     defaults:
+#       run:
+#         working-directory: root-folder/transaction-service
+
+#     env:
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       AWS_REGION: us-east-1
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20.x
+#           cache: 'npm'
+#           cache-dependency-path: root-folder/transaction-service/package-lock.json
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Deploy transaction-service
+#         run: npx cdk deploy --require-approval never --verbose
+
 
 name: Node.js Monorepo CI/CD
-
 on:
   push:
     branches: [ "master" ]
+    # Run the workflow only when *any* of the three folders changes
+    paths:
+      - 'root-folder/user-service/**'
+      - 'root-folder/product-service/**'
+      - 'root-folder/transaction-service/**'
 
 jobs:
+  # ──────────────────────────────────────────────────────────────
+  detect-changes:                    # quick, runs first
+    runs-on: ubuntu-latest
+    outputs:
+      user:  ${{ steps.filter.outputs.user }}
+      prod:  ${{ steps.filter.outputs.prod }}
+      trans: ${{ steps.filter.outputs.trans }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Which folders changed?
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            user:  root-folder/user-service/**
+            prod:  root-folder/product-service/**
+            trans: root-folder/transaction-service/**
+  # ──────────────────────────────────────────────────────────────
   user-service:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.user == 'true' }}
     runs-on: self-hosted
     defaults:
       run:
         working-directory: root-folder/user-service
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    env: &aws
+      AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: us-east-1
-
+      AWS_REGION:            us-east-1
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: 'npm'
-          cache-dependency-path: root-folder/user-service/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
       - name: Deploy user-service
         run: SERVERLESS_DASHBOARD=0 npx serverless deploy --verbose
-
+  # ──────────────────────────────────────────────────────────────
   product-service:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.prod == 'true' }}
     runs-on: self-hosted
-    needs: user-service
     defaults:
       run:
         working-directory: root-folder/product-service
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: us-east-1
-
+    env: *aws
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: 'npm'
-          cache-dependency-path: root-folder/product-service/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
       - name: Deploy product-service
         run: npx cdk deploy --require-approval never --verbose
-
+  # ──────────────────────────────────────────────────────────────
   transaction-service:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.trans == 'true' }}
     runs-on: self-hosted
-    needs: product-service
     defaults:
       run:
         working-directory: root-folder/transaction-service
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: us-east-1
-
+    env: *aws
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: 'npm'
-          cache-dependency-path: root-folder/transaction-service/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
       - name: Deploy transaction-service
         run: npx cdk deploy --require-approval never --verbose
-
 
