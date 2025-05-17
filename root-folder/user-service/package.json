@@ -29,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",
+    "serverless-esbuild": "^1.55.0",
     "stripe": "^18.0.0",
     "ts-node": "^10.9.2",
     "tsyringe": "^4.8.0",
